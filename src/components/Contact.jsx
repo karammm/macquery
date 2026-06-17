@@ -16,10 +16,10 @@ const projectTypes = [
   'Other',
 ]
 
-const inputCls = 'w-full px-5 py-3.5 rounded-xl bg-bg border border-border text-white text-sm placeholder-text-muted focus:outline-none focus:border-purple-500/40 focus:ring-1 focus:ring-purple-500/20 transition-all'
+const inputCls = 'w-full px-5 py-3.5 rounded-xl bg-bg border border-border text-text text-sm placeholder-text-muted focus:outline-none focus:border-purple-500/40 focus:ring-1 focus:ring-purple-500/20 transition-all'
 
-export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', projectType: '', custom: '', message: '' })
+export default function Contact({ hideHeader = false }) {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', projectType: '', message: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const set = (e) => setForm({ ...form, [e.target.name]: e.target.value })
@@ -33,7 +33,7 @@ export default function Contact() {
       })
       setSent(true)
       setTimeout(() => setSent(false), 4000)
-      setForm({ name: '', email: '', phone: '', projectType: '', custom: '', message: '' })
+      setForm({ name: '', email: '', phone: '', projectType: '', message: '' })
     } catch (err) {
       console.error('Firebase error:', err)
       alert('Something went wrong. Please try again.')
@@ -53,20 +53,24 @@ export default function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <p className="text-purple-400 text-sm font-semibold mb-4">Contact</p>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-5">
-              Let's build something great together
-            </h2>
-            <p className="text-text-secondary text-base leading-relaxed mb-4">
-              Have a project in mind? Drop us a message and we'll get back to you within 24 hours.
-            </p>
-            <p className="text-text-muted text-sm mb-12">
-              <span className="text-white font-medium">MacQuery</span> is a brand of <span className="text-white font-medium"> SIILARD LABS LLP</span>.
+            {!hideHeader && (
+              <>
+                <span className="section-label">Contact</span>
+                <h2 className="text-3xl lg:text-4xl font-extrabold text-text tracking-tight mb-5">
+                  Get a <span className="text-gradient">free consultation</span>
+                </h2>
+                <p className="text-text-secondary text-base leading-relaxed mb-4">
+                  Have a project in mind? Drop us a message and we&apos;ll get back to you within 24 hours.
+                </p>
+              </>
+            )}
+            <p className={`text-text-muted text-sm ${hideHeader ? 'mb-8' : 'mb-12'}`}>
+              <span className="text-text font-medium">MacQuery</span> is a brand of <span className="text-text font-medium"> SIILARD LABS LLP</span>.
             </p>
 
             <div className="space-y-8">
               {[
-                { icon: Mail, label: 'siilardlabs@gmail.com', sub: 'Email us anytime' },
+                { icon: Mail, label: 'info@macquery.in', sub: 'Email us anytime' },
                 { icon: Phone, label: '+91 93802 16302', sub: 'Mon–Sat, 9AM–8PM IST' },
                 { icon: MapPin, label: 'New Delhi', sub: 'SIILARD LABS LLP, India' },
               ].map((c) => (
@@ -75,7 +79,7 @@ export default function Contact() {
                     <c.icon size={20} className="text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-white text-sm font-medium">{c.label}</div>
+                    <div className="text-text text-sm font-medium">{c.label}</div>
                     <div className="text-text-muted text-sm mt-1">{c.sub}</div>
                   </div>
                 </div>
@@ -96,7 +100,7 @@ export default function Contact() {
                   <div className="size-16 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-5">
                     <CheckCircle2 size={32} className="text-purple-400" />
                   </div>
-                  <h4 className="text-xl font-bold text-white mb-2">Message sent!</h4>
+                  <h4 className="text-xl font-bold text-text mb-2">Message sent!</h4>
                   <p className="text-text-muted text-sm">We'll get back to you within 24 hours.</p>
                 </motion.div>
               ) : (
@@ -123,10 +127,6 @@ export default function Contact() {
                         {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                       </select>
                     </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-text-secondary mb-2">Anything else we should know?</label>
-                    <input type="text" name="custom" value={form.custom} onChange={set} placeholder="e.g. timeline, tech preferences, special requirements..." className={inputCls} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text-secondary mb-2">Message *</label>

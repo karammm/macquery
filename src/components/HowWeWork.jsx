@@ -22,8 +22,8 @@ export default function HowWeWork() {
           viewport={{ once: true }}
           className="text-center max-w-xl mx-auto mb-14 lg:mb-20"
         >
-          <p className="text-purple-400 text-sm font-semibold mb-4">Process</p>
-          <h2 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-5">
+          <span className="section-label">Process</span>
+          <h2 className="text-3xl lg:text-4xl font-extrabold text-text tracking-tight mb-5">
             How we bring ideas to life
           </h2>
           <p className="text-text-secondary text-base leading-relaxed">
@@ -45,7 +45,7 @@ export default function HowWeWork() {
                 <div className="size-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-6">
                   <s.icon size={22} className="text-purple-400" />
                 </div>
-                <h3 className="text-base font-semibold text-white mb-3">{s.title}</h3>
+                <h3 className="text-base font-semibold text-text mb-3">{s.title}</h3>
                 <p className="text-text-muted text-sm leading-relaxed">{s.desc}</p>
               </div>
               {i < steps.length - 1 && (

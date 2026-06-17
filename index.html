@@ -2,12 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MacQuery - Digital Solutions Agency</title>
+
+    <title>MacQuery – Build Smart, Ship Fast | Digital Solutions</title>
+    <meta name="description" content="MacQuery designs and ships AI-driven web & mobile apps with scalable cloud infrastructure and pixel-perfect UI/UX. Based in India, serving clients worldwide." />
+    <meta name="keywords" content="MacQuery, web development, mobile apps, AI automation, UI/UX design, cloud solutions, SEO, digital agency, India" />
+    <meta name="author" content="MacQuery – SIILARD LABS LLP" />
+    <meta name="theme-color" content="#7c3aed" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <script>
+      (function () {
+        var t = localStorage.getItem('macquery-theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+          document.documentElement.style.colorScheme = t;
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/macquerylogo.png" />
+    <link rel="apple-touch-icon" href="/macquerylogo.png" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.macquery.in/" />
+    <meta property="og:title" content="MacQuery – Build Smart, Ship Fast" />
+    <meta property="og:description" content="We design and ship AI-driven web & mobile apps with scalable cloud infrastructure and pixel-perfect UI/UX — everything you need to automate, launch, and grow." />
+    <meta property="og:image" content="https://www.macquery.in/macquerylogo.png" />
+    <meta property="og:site_name" content="MacQuery" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="MacQuery – Build Smart, Ship Fast" />
+    <meta name="twitter:description" content="We design and ship AI-driven web & mobile apps with scalable cloud infrastructure and pixel-perfect UI/UX." />
+    <meta name="twitter:image" content="https://www.macquery.in/macquerylogo.png" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZNQJW3Z3J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QZNQJW3Z3J');
+    </script>
   </head>
   <body>
     <div id="root"></div>

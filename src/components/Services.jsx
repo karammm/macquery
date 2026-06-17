@@ -1,6 +1,7 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { Globe, Smartphone, Search, Cloud, BrainCircuit, Palette, Box, FileText, ArrowUpRight, X, CheckCircle2, Cpu } from 'lucide-react'
+import SectionHeader from './ui/SectionHeader'
 
 const services = [
   {
@@ -186,7 +187,7 @@ function ServiceModal({ service, onClose }) {
             <div className={`size-12 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg`}>
               <Icon size={22} className="text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <h3 className="text-xl font-bold text-text">{title}</h3>
           </div>
           <button onClick={onClose} className="size-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer">
             <X size={18} className="text-text-muted" />
@@ -199,7 +200,7 @@ function ServiceModal({ service, onClose }) {
 
           {/* Key Benefits */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-3 flex items-center gap-2">
+            <h4 className="text-text text-sm font-semibold mb-3 flex items-center gap-2">
               <CheckCircle2 size={16} className="text-purple-400" />
               Key Benefits
             </h4>
@@ -215,7 +216,7 @@ function ServiceModal({ service, onClose }) {
 
           {/* Technologies */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-3 flex items-center gap-2">
+            <h4 className="text-text text-sm font-semibold mb-3 flex items-center gap-2">
               <Cpu size={16} className="text-purple-400" />
               Technologies Used
             </h4>
@@ -230,7 +231,7 @@ function ServiceModal({ service, onClose }) {
 
           {/* Deliverables */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-3">Deliverables</h4>
+            <h4 className="text-text text-sm font-semibold mb-3">Deliverables</h4>
             <div className="grid grid-cols-2 gap-2.5">
               {detail.deliverables.map((d) => (
                 <div key={d} className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-border text-text-muted text-xs">
@@ -257,43 +258,37 @@ function ServiceModal({ service, onClose }) {
   )
 }
 
-export default function Services() {
+export default function Services({ preview = false, showHeader = true }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [selected, setSelected] = useState(null)
+  const list = preview ? services.slice(0, 4) : services
 
   return (
-    <section id="services" className="py-28 lg:py-36">
+    <section id="services" className="py-24 lg:py-32 border-t border-border">
       <div className="site-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mb-14 lg:mb-20"
-        >
-          <p className="text-purple-400 text-sm font-semibold mb-4">Services</p>
-          <h2 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-5">
-            Everything you need to grow online
-          </h2>
-          <p className="text-text-secondary text-base leading-relaxed">
-            AI-first development, modern design, and growth strategies — all under one roof to turn your ideas into products people love.
-          </p>
-        </motion.div>
+        {showHeader && (
+          <SectionHeader
+            label="Services"
+            title={<>Our <span className="text-gradient">Services</span></>}
+            subtitle="Comprehensive digital solutions to power your business growth — from web and mobile to AI, cloud, and design."
+          />
+        )}
 
         <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-          {services.map((s, i) => (
+          {list.map((s, i) => (
             <motion.div
               key={s.title}
               initial={{ opacity: 0, y: 25 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.05, duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
               onClick={() => setSelected(s)}
-              className="group relative p-7 rounded-2xl bg-card border border-border hover:border-purple-500/25 hover:bg-card-hover transition-all duration-300 cursor-pointer"
+              className="group relative p-7 rounded-2xl glass-card cursor-pointer"
             >
               <div className={`size-12 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-5 shadow-lg opacity-90 group-hover:opacity-100 transition-opacity`}>
                 <s.icon size={22} className="text-white" />
               </div>
-              <h3 className="text-base font-semibold text-white mb-3">{s.title}</h3>
+              <h3 className="text-base font-semibold text-text mb-3">{s.title}</h3>
               <p className="text-text-muted text-sm leading-relaxed">{s.desc}</p>
               <ArrowUpRight size={16} className="absolute top-6 right-6 text-text-muted opacity-0 group-hover:opacity-100 group-hover:text-purple-400 transition-all" />
             </motion.div>
@@ -301,6 +296,7 @@ export default function Services() {
         </div>
       </div>
 
+      {!preview && (
       <div className="site-container mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-text-muted text-xs">
         <p className="flex items-center gap-2">
           <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
@@ -311,6 +307,7 @@ export default function Services() {
           Domain and hosting costs are not included in this pricing.
         </p>
       </div>
+      )}
 
       <AnimatePresence>
         {selected && <ServiceModal service={selected} onClose={() => setSelected(null)} />}
