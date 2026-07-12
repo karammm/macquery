@@ -5,13 +5,14 @@ import Services from '../components/Services'
 import Industries from '../components/Industries'
 import HowWeWork from '../components/HowWeWork'
 import PoweredBy from '../components/PoweredBy'
+import Seo from '../components/Seo'
 
 const process = [
   { icon: Compass, title: 'Discovery & strategy', desc: 'We map goals, users, tech constraints, and success metrics before writing code.' },
   { icon: PenTool, title: 'Design & prototype', desc: 'Wireframes, UI systems, and interactive prototypes aligned to your brand.' },
   { icon: Code2, title: 'Build & integrate', desc: 'Agile sprints with weekly demos, CI/CD, and rigorous QA on every release.' },
   { icon: Rocket, title: 'Launch & optimize', desc: 'Deployment, monitoring, SEO, and performance tuning for production readiness.' },
-  { icon: Headphones, title: 'Support & evolve', desc: '1 year of included maintenance plus ongoing feature work as you grow.' },
+  { icon: Headphones, title: 'Support & evolve', desc: 'Maintenance on monthly basis plus ongoing feature work as you grow.' },
 ]
 
 const engagement = [
@@ -23,6 +24,12 @@ const engagement = [
 export default function ServicesPage() {
   return (
     <>
+      <Seo
+        title="Services — Web, Mobile, AI Automation, Cloud & UI/UX | MacQuery"
+        description="Explore MacQuery's services: web & mobile app development, AI automation, cloud/DevOps, SEO, ERP and UI/UX design — from MVP to enterprise scale, delivered by one senior team."
+        keywords="web development services, mobile app development, AI automation services, n8n automation, cloud DevOps AWS Azure, UI UX design, SEO services, ERP development, custom software development India"
+        path="/services"
+      />
       <PageHero
         label="Services"
         title={<>Everything you need to <span className="text-gradient">grow online</span></>}

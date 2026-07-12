@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { MapPin, Clock, ArrowRight, Coffee, Laptop, GraduationCap } from 'lucide-react'
 import PageHero from '../components/PageHero'
+import Seo from '../components/Seo'
 
 const perks = [
   { icon: Laptop, title: 'Remote-friendly', desc: 'Hybrid work from New Delhi with flexible hours.' },
@@ -39,6 +40,12 @@ const openings = [
 export default function CareersPage() {
   return (
     <>
+      <Seo
+        title="Careers at MacQuery — Join Our Software & Design Team"
+        description="Build production software at MacQuery (SIILARD LABS LLP). Explore open roles in React, full-stack, AI automation, DevOps and UI/UX — remote-friendly with real ownership from day one."
+        keywords="software jobs India, React developer jobs, full-stack developer careers, UI UX designer jobs, AI automation engineer, DevOps jobs, MacQuery careers"
+        path="/careers"
+      />
       <PageHero
         label="Careers"
         title={<>Build the future with <span className="text-gradient">MacQuery</span></>}

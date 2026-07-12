@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom'
 import { Calendar, ArrowRight, Tag } from 'lucide-react'
 import PageHero from '../components/PageHero'
 import { blogPosts as posts } from '../data/blogPosts'
+import Seo from '../components/Seo'
 
 export default function BlogPage() {
   return (
     <>
+      <Seo
+        title="Blog — Engineering, AI & Product Insights | MacQuery"
+        description="Engineering notes, architecture deep-dives and lessons from shipping AI, web, mobile and cloud products for startups and enterprises — from the MacQuery team."
+        keywords="software engineering blog, AI automation blog, web development articles, React tutorials, cloud architecture, MacQuery blog"
+        path="/blog"
+      />
       <PageHero
         label="Blog"
         title={<>Insights from the <span className="text-gradient">MacQuery</span> team</>}

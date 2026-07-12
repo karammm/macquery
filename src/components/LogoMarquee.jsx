@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 const clients = [
   { name: 'Siila.org', initial: 'S' },
   { name: 'Kumar Jewellers', initial: 'O' },
-  { name: 'Regalo', initial: 'R' },
+  { name: 'Velocys', initial: 'V' },
   { name: 'Abhidhya', initial: 'A' },
   { name: 'Meghnify', initial: 'M' },
   { name: 'Magda Gallery', initial: 'M' },

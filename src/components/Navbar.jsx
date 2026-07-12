@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import macqueryLogo from '../assets/images/macquerylogo.png'
+import macqueryLogo from '../assets/images/mqlogo.png'
 import ThemeToggle from './ThemeToggle'
 
 const links = [
@@ -45,13 +45,12 @@ export default function Navbar() {
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-bg/80 backdrop-blur-xl border-b border-border' : ''
-        }`}
+        className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4"
       >
-        <div className="site-container flex items-center justify-between h-18">
+        <div className="site-container">
+          <div className={`liquid-nav rounded-full flex items-center justify-between h-16 px-4 sm:px-6 w-full ${scrolled ? 'is-scrolled' : ''}`}>
           <Link to="/" className="flex items-center gap-2.5">
-            <img src={macqueryLogo} alt="MacQuery" className="size-9 rounded-lg bg-white object-contain" />
+            <img src={macqueryLogo} alt="MacQuery" className="size-10 object-contain drop-shadow-[0_2px_10px_rgba(168,85,247,0.55)]" />
             <span className="text-text font-bold text-base tracking-tight">MacQuery</span>
           </Link>
 
@@ -65,7 +64,7 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
-            <Link to="/contact" className="btn-accent">
+            <Link to="/contact" className="btn-accent shimmer-btn">
               Get Started
             </Link>
           </div>
@@ -75,6 +74,7 @@ export default function Navbar() {
             <button type="button" onClick={() => setOpen(!open)} className="text-text-secondary hover:text-text cursor-pointer p-1" aria-label="Menu">
               {open ? <X size={22} /> : <Menu size={22} />}
             </button>
+          </div>
           </div>
         </div>
       </motion.header>
@@ -100,7 +100,7 @@ export default function Navbar() {
                 </NavLink>
               </motion.div>
             ))}
-            <Link to="/contact" className="mt-4 btn-accent px-10 py-3.5">
+            <Link to="/contact" className="mt-4 btn-accent shimmer-btn px-10 py-3.5">
               Get Started
             </Link>
           </motion.div>

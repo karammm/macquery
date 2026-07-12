@@ -5,10 +5,17 @@ import About from '../components/About'
 import WhyChooseUs from '../components/WhyChooseUs'
 import PoweredBy from '../components/PoweredBy'
 import Reveal from '../components/Reveal'
+import Seo from '../components/Seo'
 
 export default function AboutPage() {
   return (
     <>
+      <Seo
+        title="About MacQuery — AI-First Software Studio | SIILARD LABS LLP"
+        description="Meet MacQuery (SIILARD LABS LLP) — engineers, designers and strategists building AI-driven web, mobile and cloud products from Gurugram & Dehradun, India."
+        keywords="about MacQuery, SIILARD LABS LLP, software studio India, software company Gurugram, IT company Dehradun, web development team"
+        path="/about"
+      />
       <PageHero
         label="About Us"
         title={<>Our <span className="text-gradient">Story</span></>}

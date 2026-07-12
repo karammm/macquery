@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Twitter, Instagram, Linkedin, Github, ArrowUp } from 'lucide-react'
-import macqueryLogo from '../assets/images/macquerylogo.png'
+import macqueryLogo from '../assets/images/mqlogo.png'
 
 const columns = {
   Services: [
@@ -24,7 +24,7 @@ const columns = {
 
 const social = [
   // { icon: Twitter, href: '#' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/company/macquery' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/macquerylabs' },
   { icon: Instagram, href: 'https://www.instagram.com/mac_query' },
   // { icon: Github, href: '#' },
 ]
@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="py-16 lg:py-20 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 lg:gap-14">
           <div className="col-span-2 md:col-span-4 lg:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 mb-5">
-              <img src={macqueryLogo} alt="MacQuery" className="size-9 rounded-lg bg-white object-contain" />
+              <img src={macqueryLogo} alt="MacQuery" className="size-10 object-contain drop-shadow-[0_2px_10px_rgba(168,85,247,0.55)]" />
               <span className="text-text font-bold text-base">MacQuery</span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed max-w-sm mb-6">
@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div className="py-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-5 text-text-muted text-sm">
-            <span>&copy; {new Date().getFullYear()} MacQuery. All rights reserved.</span>
+            <span>&copy; {new Date().getFullYear()} MacQuery. All rights reserved - SIILARD LABS LLP.</span>
             <a href="https://www.macquery.in" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">
               macquery.in
             </a>

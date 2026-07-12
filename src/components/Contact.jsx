@@ -72,7 +72,8 @@ export default function Contact({ hideHeader = false }) {
               {[
                 { icon: Mail, label: 'info@macquery.in', sub: 'Email us anytime' },
                 { icon: Phone, label: '+91 93802 16302', sub: 'Mon–Sat, 9AM–8PM IST' },
-                { icon: MapPin, label: 'New Delhi', sub: 'SIILARD LABS LLP, India' },
+                { icon: MapPin, label: 'Tag Tower 28, Sector 18, Gurugram, India', sub: 'SIILARD LABS LLP' },
+                { icon: MapPin, label: 'IT Park, Sahastradhara Road, Dehradun, India', sub: 'Sales Center' },
               ].map((c) => (
                 <div key={c.label} className="flex items-start gap-5">
                   <div className="size-12 rounded-xl bg-purple-500/10 flex items-center justify-center shrink-0 mt-0.5">

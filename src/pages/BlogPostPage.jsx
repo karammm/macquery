@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
 import PageHero from '../components/PageHero'
+import Seo from '../components/Seo'
 import { getBlogPostBySlug } from '../data/blogPosts'
 
 export default function BlogPostPage() {
@@ -29,6 +30,12 @@ export default function BlogPostPage() {
 
   return (
     <>
+      <Seo
+        title={`${post.title} | MacQuery Blog`}
+        description={post.excerpt}
+        keywords={`${post.category}, MacQuery blog, ${post.title}`}
+        path={`/blog/${slug}`}
+      />
       <PageHero
         label="Blog"
         title={<>{post.title}</>}

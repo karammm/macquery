@@ -14,7 +14,7 @@ const team = [
     bio: 'Drives company vision, client relationships, and growth strategy — turning ideas into scalable digital businesses.',
     photo: karamPhoto,
     initials: 'KV',
-    linkedin: 'https://www.linkedin.com/in/karamjitverma',
+    linkedin: null,
     twitter: null,
     github: null,
   },
@@ -218,9 +218,6 @@ export default function Team({ showHeader = true }) {
             <h2 className="text-3xl lg:text-4xl font-extrabold text-text tracking-tight mb-4">
               The minds behind <span className="text-gradient">MacQuery</span>
             </h2>
-            <p className="text-text-secondary max-w-xl mx-auto">
-              Hover over a photo or name to explore the team.
-            </p>
           </Reveal>
         )}
 
