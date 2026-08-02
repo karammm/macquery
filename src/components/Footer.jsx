@@ -5,10 +5,10 @@ import { openCookieSettings } from '../lib/consent'
 
 const columns = {
   Services: [
-    { label: 'Web Development', to: '/services' },
-    { label: 'Mobile Apps', to: '/services' },
-    { label: 'AI & Automation', to: '/services' },
-    { label: 'Cloud Solutions', to: '/services' },
+    { label: 'EU AI Act Readiness', to: '/services' },
+    { label: 'GDPR-Safe GenAI', to: '/services' },
+    { label: 'AI Governance (ISO 42001)', to: '/services' },
+    { label: 'Regulated-Sector Delivery', to: '/services' },
   ],
   Company: [
     { label: 'About Us', to: '/about' },

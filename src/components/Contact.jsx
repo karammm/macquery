@@ -7,14 +7,11 @@ import { db } from '../firebase'
 import { LAST_UPDATED } from '../data/legal'
 
 const projectTypes = [
-  'Web Development',
-  'Mobile Apps',
-  'SEO & Growth',
-  'Cloud Solutions',
-  'AI & Automation',
-  'UI/UX Design',
-  '3D Design',
-  'Content Strategy',
+  'EU AI Act readiness assessment',
+  'GDPR-safe GenAI architecture',
+  'AI governance / ISO 42001',
+  'Regulated-sector GenAI delivery',
+  'Not sure yet — need guidance',
   'Other',
 ]
 
