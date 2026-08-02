@@ -68,15 +68,11 @@
          visitor's IP to Google before any consent, which German courts have held
          to be an unlawful GDPR transfer. Do not add it back. -->
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZNQJW3Z3J"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-QZNQJW3Z3J');
-    </script>
+    <!--
+      Google Analytics is loaded at runtime by src/lib/consent.js, and only
+      after the visitor opts in. Do not add gtag.js back here: doing so sets
+      identifiers before consent and breaks ePrivacy Art. 5(3).
+    -->
 
     <!-- Structured data (Google rich results) -->
     <script type="application/ld+json">
