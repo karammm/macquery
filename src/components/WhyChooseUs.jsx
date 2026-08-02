@@ -1,16 +1,36 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Target, Shield, Users, Wallet, HeartHandshake } from 'lucide-react'
+import { Target, Shield, Wrench, FileText, HeartHandshake } from 'lucide-react'
 import SectionHeader from './ui/SectionHeader'
 import { trackRecord, FOUNDED_YEAR } from '../data/trackRecord'
 import StatCounter from './ui/StatCounter'
 
 const features = [
-  { icon: Target, title: 'Industry-Specific Solutions', desc: "We don't do generic. Every solution is tailored to your industry's unique requirements." },
-  { icon: Shield, title: 'Scalable & Secure Tech', desc: 'Enterprise-grade infrastructure that grows with your business while keeping data protected.' },
-  { icon: Users, title: 'Experienced Team', desc: 'Senior developers, designers, and strategists with years of collective experience.' },
-  { icon: Wallet, title: 'Affordable & Transparent', desc: 'Clear pricing with no hidden costs. Premium quality at competitive rates.' },
-  { icon: HeartHandshake, title: 'Long-Term Support', desc: "Dedicated support and maintenance — we're with you for the long haul." },
+  {
+    icon: Wrench,
+    title: 'We implement what we find',
+    desc: 'The team that writes the assessment ships the remediation. No handoff to a separate vendor, no second scoping exercise.',
+  },
+  {
+    icon: Shield,
+    title: 'EU data residency by design',
+    desc: 'Inference and storage pinned to EU regions from the architecture stage, with the data flows documented for your DPO.',
+  },
+  {
+    icon: FileText,
+    title: 'Paperwork ready before kickoff',
+    desc: 'SCCs, a transfer impact assessment and a DPA available up front — not negotiated after you have already shared material.',
+  },
+  {
+    icon: Target,
+    title: 'Findings traceable to the article',
+    desc: 'Every gap cites the provision it comes from, so your counsel can check our work instead of taking it on trust.',
+  },
+  {
+    icon: HeartHandshake,
+    title: 'Re-assessed as rules change',
+    desc: 'Deadlines have already moved once. We re-test against amendments and keep your documentation current.',
+  },
 ]
 
 export default function WhyChooseUs() {
@@ -23,7 +43,7 @@ export default function WhyChooseUs() {
         <SectionHeader
           label="Why MacQuery"
           title={<>Why choose <span className="text-gradient">MacQuery</span>?</>}
-          subtitle="We combine deep industry expertise with cutting-edge technology to deliver solutions that truly transform businesses."
+          subtitle="Most firms sell you either the audit or the build. Buying both from one team is the difference between a report and a system that passes review."
         />
 
         <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 mb-16">

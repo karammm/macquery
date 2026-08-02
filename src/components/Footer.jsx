@@ -47,7 +47,7 @@ export default function Footer() {
               <span className="text-text font-bold text-base">MacQuery</span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed max-w-sm mb-6">
-              AI-driven web, mobile, and cloud solutions — built in New Delhi, delivered worldwide by Siilard Labs LLP.
+              GenAI consulting for regulated European businesses — EU AI Act, GDPR, DORA and NIS2. A brand of SIILARD LABS LLP.
             </p>
             <div className="flex gap-3">
               {social.map((s, i) => (
