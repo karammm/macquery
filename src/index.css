@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+/* Self-hosted so no visitor IP is sent to Google's font CDN on page load.
+   Do not replace this with the fonts.googleapis.com stylesheet. */
+@import "@fontsource-variable/inter";
+
 @theme {
-  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-inter: 'Inter Variable', 'Inter', system-ui, sans-serif;
   --color-purple-400: #c084fc;
   --color-purple-500: #a855f7;
   --color-purple-600: #9333ea;

@@ -1,4 +1,4 @@
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { Globe, Smartphone, Search, Cloud, BrainCircuit, Palette, Box, FileText, ArrowUpRight, X, CheckCircle2, Cpu } from 'lucide-react'
 import SectionHeader from './ui/SectionHeader'
@@ -167,7 +167,6 @@ function ServiceModal({ service, onClose }) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
@@ -176,7 +175,6 @@ function ServiceModal({ service, onClose }) {
       <motion.div
         initial={{ opacity: 0, scale: 0.92, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
         transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
         onClick={(e) => e.stopPropagation()}
         className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl bg-card border border-border shadow-2xl"
@@ -309,9 +307,9 @@ export default function Services({ preview = false, showHeader = true }) {
       </div>
       )}
 
-      <AnimatePresence>
-        {selected && <ServiceModal service={selected} onClose={() => setSelected(null)} />}
-      </AnimatePresence>
+      {/* See ProjectDetailsModal: AnimatePresence never unmounts here, which
+          strands an invisible overlay and leaves body overflow hidden. */}
+      {selected && <ServiceModal service={selected} onClose={() => setSelected(null)} />}
     </section>
   )
 }

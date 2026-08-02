@@ -52,29 +52,34 @@ export default function Hero() {
         <Reveal>
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-8">
             <span className="size-1.5 rounded-full bg-purple-400 animate-pulse" />
-            AI-first digital studio
+            EU AI Act Article 50 applies from 2 August 2026
           </span>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-text leading-[1.08] tracking-tight mb-8">
-            Build smart,{' '}
-            <span className="text-gradient">ship fast</span>
+            GenAI that clears{' '}
+            <span className="text-gradient">compliance review</span>
           </h1>
 
           <p className="text-text-secondary text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
-            We design and ship AI-driven web and mobile apps with scalable cloud infrastructure and pixel-perfect UI/UX — tailored for your industry.
+            We design, build and document generative AI for European companies in regulated
+            sectors — against the EU AI Act, GDPR, DORA and NIS2. The team that writes the
+            assessment also ships the fix, so you get working systems and the evidence to
+            defend them.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-            <Link to="/services" className="btn-primary">
-              Explore Services
+            <Link to="/contact" className="btn-primary">
+              Book an AI Act readiness review
               <ArrowRight size={16} />
             </Link>
-            <Link to="/contact" className="btn-outline">
-              Get a Free Consultation
+            <Link to="/services" className="btn-outline">
+              See how we work
             </Link>
           </div>
 
-          <p className="text-text-muted text-sm">Trusted by ambitious teams worldwide</p>
+          <p className="text-text-muted text-sm">
+            SCCs, transfer impact assessment and DPA available before you share a single document.
+          </p>
         </Reveal>
       </div>
     </section>

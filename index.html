@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>MacQuery — AI Software, Web, Mobile &amp; Cloud Development Company in India</title>
-    <meta name="description" content="MacQuery (SIILARD LABS LLP) is an AI-first software development company in Gurugram &amp; Dehradun, India. We build AI-driven web apps, mobile apps, ERP software, cloud/DevOps and SEO-optimized products for startups and enterprises worldwide." />
-    <meta name="keywords" content="MacQuery, SIILARD LABS LLP, software development company India, web development company Gurugram, software company Dehradun, AI automation agency, n8n automation, React development, Next.js development, React Native app development, mobile app development India, cloud solutions, AWS DevOps, Azure, Kubernetes, UI UX design, SEO services, ERP software development, custom software development, SaaS development, MVP development, machine learning, OpenAI integration, LangChain, three.js 3D design, digital agency India" />
+    <title>MacQuery — GenAI Consulting for Regulated European Businesses | EU AI Act &amp; GDPR</title>
+    <meta name="description" content="MacQuery (SIILARD LABS LLP) designs, builds and documents generative AI for European companies in regulated sectors — under the EU AI Act, GDPR, DORA and NIS2. Readiness assessments, GDPR-safe GenAI architecture and ISO 42001 governance, delivered by the same team that ships the code." />
+    <meta name="keywords" content="GenAI consulting Europe, EU AI Act compliance consulting, EU AI Act readiness assessment, Article 50 transparency obligations, GDPR AI compliance, AI governance consulting, ISO 42001 implementation, ISO/IEC 42001 AI management system, DORA compliance AI, NIS2 AI systems, MDR IVDR AI medical device software, EU data residency AI, AI risk classification, high-risk AI systems, responsible AI consulting, LLM compliance, AI Act conformity assessment, MacQuery, SIILARD LABS LLP" />
     <meta name="author" content="MacQuery — SIILARD LABS LLP" />
     <meta name="publisher" content="SIILARD LABS LLP" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -16,11 +16,13 @@
     <meta name="language" content="English" />
     <link rel="canonical" href="https://www.macquery.in/" />
 
-    <!-- Local SEO (geo) -->
-    <meta name="geo.region" content="IN-HR" />
-    <meta name="geo.placename" content="Gurugram, Dehradun, India" />
-    <meta name="geo.position" content="28.4946;77.0880" />
-    <meta name="ICBM" content="28.4946, 77.0880" />
+    <!--
+      Geo meta deliberately removed. It pinned the site to Gurugram for local
+      search, which competes directly with the European positioning: a buyer
+      searching "EU AI Act consultant" is not looking for a local Haryana
+      supplier. The registered office is still disclosed on /imprint and in the
+      Organization schema below, where it belongs.
+    -->
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <script>
@@ -43,8 +45,8 @@
     <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.macquery.in/" />
-    <meta property="og:title" content="MacQuery — AI Software, Web, Mobile &amp; Cloud Development Company" />
-    <meta property="og:description" content="AI-first software studio in Gurugram &amp; Dehradun, India. We build AI-driven web &amp; mobile apps, ERP software, cloud/DevOps and SEO-optimized products — everything you need to automate, launch, and grow." />
+    <meta property="og:title" content="MacQuery — GenAI Consulting for Regulated European Businesses" />
+    <meta property="og:description" content="Generative AI for European companies in regulated sectors — designed, built and documented against the EU AI Act, GDPR, DORA and NIS2. The team that writes the assessment also ships the fix." />
     <meta property="og:image" content="https://www.macquery.in/og-image.png" />
     <meta property="og:image:secure_url" content="https://www.macquery.in/og-image.png" />
     <meta property="og:image:type" content="image/png" />
@@ -56,16 +58,16 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MacQuery — AI Software, Web, Mobile &amp; Cloud Development Company" />
-    <meta name="twitter:description" content="AI-first software studio in Gurugram &amp; Dehradun, India. AI-driven web &amp; mobile apps, ERP software, cloud/DevOps and SEO-optimized products." />
+    <meta name="twitter:title" content="MacQuery — GenAI Consulting for Regulated European Businesses" />
+    <meta name="twitter:description" content="Generative AI built and documented against the EU AI Act, GDPR, DORA and NIS2 — for European companies in regulated sectors." />
     <meta name="twitter:image" content="https://www.macquery.in/og-image.png" />
     <meta name="twitter:image:alt" content="MacQuery — AI-first software development company" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    
+    <!-- Fonts are self-hosted via @fontsource-variable/inter (see src/index.css).
+         The fonts.googleapis.com stylesheet used to sit here; it transmitted every
+         visitor's IP to Google before any consent, which German courts have held
+         to be an unlawful GDPR transfer. Do not add it back. -->
+
     <!--
       Google Analytics is loaded at runtime by src/lib/consent.js, and only
       after the visitor opts in. Do not add gtag.js back here: doing so sets
@@ -85,20 +87,29 @@
           "url": "https://www.macquery.in/",
           "logo": "https://www.macquery.in/og-image.png",
           "image": "https://www.macquery.in/og-image.png",
-          "description": "AI-first software development company building AI-driven web apps, mobile apps, ERP software, cloud/DevOps and SEO-optimized products for startups and enterprises worldwide.",
+          "description": "GenAI consultancy for European companies in regulated sectors. We design, build and document generative AI systems against the EU AI Act, GDPR, DORA and NIS2 — combining readiness assessments and AI governance with the engineering to implement them.",
           "email": "info@macquery.in",
           "telephone": "+91-93802-16302",
+          "foundingDate": "2024",
           "foundingLocation": "India",
-          "areaServed": "Worldwide",
+          "areaServed": [
+            { "@type": "Place", "name": "European Union" },
+            { "@type": "Place", "name": "European Economic Area" },
+            { "@type": "Place", "name": "United Kingdom" }
+          ],
           "knowsAbout": [
-            "Web Development",
-            "Mobile App Development",
-            "AI Automation",
-            "Cloud Solutions",
-            "DevOps",
-            "UI/UX Design",
-            "SEO",
-            "ERP Software Development"
+            "EU AI Act compliance",
+            "EU AI Act Article 50 transparency obligations",
+            "AI risk classification and conformity assessment",
+            "GDPR and data protection by design",
+            "ISO/IEC 42001 AI management systems",
+            "ISO/IEC 27001 information security",
+            "NIS2 Directive",
+            "DORA digital operational resilience",
+            "MDR and IVDR software as a medical device",
+            "EU data residency and sovereign AI architecture",
+            "Retrieval-augmented generation and LLM evaluation",
+            "AI governance and model documentation"
           ],
           "address": [
             {
@@ -121,14 +132,20 @@
             "telephone": "+91-93802-16302",
             "email": "info@macquery.in",
             "contactType": "sales",
-            "areaServed": "Worldwide",
+            "areaServed": ["EU", "EEA", "GB"],
             "availableLanguage": ["English", "Hindi"]
           }
         },
         {
           "@type": "ProfessionalService",
           "@id": "https://www.macquery.in/#service",
-          "name": "MacQuery — Software Development Company",
+          "name": "MacQuery — GenAI Consulting for Regulated European Businesses",
+          "serviceType": [
+            "EU AI Act readiness assessment",
+            "GDPR-safe GenAI architecture",
+            "AI governance implementation (ISO/IEC 42001)",
+            "Regulated-sector GenAI delivery"
+          ],
           "image": "https://www.macquery.in/og-image.png",
           "url": "https://www.macquery.in/",
           "telephone": "+91-93802-16302",
@@ -142,12 +159,11 @@
             "postalCode": "122015",
             "addressCountry": "IN"
           },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 28.4946,
-            "longitude": 77.0880
-          },
-          "areaServed": "Worldwide"
+          "areaServed": [
+            { "@type": "Place", "name": "European Union" },
+            { "@type": "Place", "name": "European Economic Area" },
+            { "@type": "Place", "name": "United Kingdom" }
+          ]
         },
         {
           "@type": "WebSite",

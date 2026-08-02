@@ -14,9 +14,9 @@ export default function HomePage() {
   return (
     <>
       <Seo
-        title="MacQuery — AI Software, Web, Mobile & Cloud Development Company in India"
-        description="AI-first software studio in Gurugram & Dehradun, India. We build AI-driven web apps, mobile apps, ERP software, cloud/DevOps and SEO-optimized products for startups and enterprises worldwide."
-        keywords="software development company India, web development company Gurugram, software company Dehradun, AI automation agency, React development, mobile app development, cloud solutions, ERP software, UI UX design, SEO services, MacQuery, SIILARD LABS LLP"
+        title="MacQuery — GenAI Consulting for Regulated European Businesses | EU AI Act & GDPR"
+        description="We design, build and document generative AI for European companies in regulated sectors — against the EU AI Act, GDPR, DORA and NIS2. Readiness assessments, GDPR-safe architecture and ISO 42001 governance, delivered by the team that ships the code."
+        keywords="GenAI consulting Europe, EU AI Act compliance consulting, EU AI Act readiness assessment, Article 50 transparency obligations, GDPR AI compliance, AI governance consulting, ISO 42001 implementation, DORA compliance, NIS2, EU data residency AI, high-risk AI systems, MacQuery, SIILARD LABS LLP"
         path="/"
       />
       <Hero />

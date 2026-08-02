@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import macqueryLogo from '../assets/images/mqlogo.png'
 import ThemeToggle from './ThemeToggle'
@@ -79,33 +79,32 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-lg lg:hidden flex flex-col items-center justify-center gap-8"
-          >
-            <div className="absolute top-6 right-6 flex items-center gap-3">
-              <ThemeToggle />
-              <button type="button" onClick={() => setOpen(false)} className="text-text-secondary hover:text-text cursor-pointer p-1" aria-label="Close">
-                <X size={24} />
-              </button>
-            </div>
-            {links.map((l, i) => (
-              <motion.div key={l.to} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                <NavLink to={l.to} end={l.to === '/'} className={({ isActive }) => `text-2xl font-semibold ${isActive ? 'text-purple-400' : 'text-text'}`}>
-                  {l.label}
-                </NavLink>
-              </motion.div>
-            ))}
-            <Link to="/contact" className="mt-4 btn-accent shimmer-btn px-10 py-3.5">
-              Get Started
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Not AnimatePresence: it leaves this full-screen overlay mounted at
+          opacity 0 after close, which swallows every tap on mobile. */}
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-lg lg:hidden flex flex-col items-center justify-center gap-8"
+        >
+          <div className="absolute top-6 right-6 flex items-center gap-3">
+            <ThemeToggle />
+            <button type="button" onClick={() => setOpen(false)} className="text-text-secondary hover:text-text cursor-pointer p-1" aria-label="Close">
+              <X size={24} />
+            </button>
+          </div>
+          {links.map((l, i) => (
+            <motion.div key={l.to} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+              <NavLink to={l.to} end={l.to === '/'} className={({ isActive }) => `text-2xl font-semibold ${isActive ? 'text-purple-400' : 'text-text'}`}>
+                {l.label}
+              </NavLink>
+            </motion.div>
+          ))}
+          <Link to="/contact" className="mt-4 btn-accent shimmer-btn px-10 py-3.5">
+            Get Started
+          </Link>
+        </motion.div>
+      )}
     </>
   )
 }
