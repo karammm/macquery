@@ -32,9 +32,18 @@ Choose the bump per [Semantic Versioning 2.0.0](https://semver.org/):
 1. **Verify** — checks the tag is valid semver (using the regex published by
    semver.org) and that it matches `package.json`. A mismatch fails the run
    rather than shipping a mislabelled build.
-2. **Build** — `npm ci && npm run build`, uploading `dist/` as a Pages artifact.
-3. **Deploy** — publishes to GitHub Pages. Skipped for pre-releases.
+2. **Build** — `npm ci && npm run build`, uploading `dist/` as an artifact.
+3. **Deploy** — syncs to the S3 bucket behind CloudFront that serves
+   www.macquery.in, invalidates the CDN, waits for the invalidation, then
+   fetches the live site and asserts it is serving this build's asset hash.
+   Skipped for pre-releases.
 4. **Release** — creates a GitHub Release with generated notes.
+
+Caching is split deliberately. Vite fingerprints everything under `/assets`,
+so those get `max-age=31536000, immutable`. `index.html`, `robots.txt` and
+`sitemap.xml` keep stable names and get `max-age=0, must-revalidate` —
+otherwise a visitor keeps an old `index.html` pointing at asset files that no
+longer exist.
 
 Note that semver.org is explicit that `v1.2.3` is a *tag name*; the version
 itself is `1.2.3`. The workflow strips the `v` before validating.
@@ -56,27 +65,38 @@ ref without creating a tag or release. For emergencies, not routine use.
 
 ## One-time setup still required
 
-These need repository admin and have not been done:
+`www.macquery.in` resolves to `dl7j4bwemy1ki.cloudfront.net` and is served by
+S3 behind CloudFront. The deploy job needs credentials for that account, which
+must be added by someone with repository admin — **the deploy job fails with a
+clear error until they exist.**
 
-1. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
-   The source is currently the `main` branch at `/`, which serves the raw
-   repository — that is why `karammm.github.io/macquery/` currently ships
-   `index.html` pointing at `/src/main.jsx`, which only works under the Vite
-   dev server. Until this is switched, `deploy-pages` cannot publish.
+Add these under Settings → Secrets and variables → Actions:
 
-2. **Confirm the custom domain.** `www.macquery.in` currently serves a build
-   that matches neither `main` nor the `gh-pages` branch, so it is being
-   published from somewhere outside this repository. Point it at this Pages
-   site (Settings → Pages → Custom domain) before relying on this pipeline,
-   or the two will fight over the domain.
+| Secret | What it is |
+|--------|------------|
+| `S3_BUCKET` | Bucket name serving the site (no `s3://` prefix) |
+| `CLOUDFRONT_DISTRIBUTION_ID` | Distribution in front of that bucket |
+| `AWS_REGION` | Region of the bucket, e.g. `ap-south-1` |
+| `AWS_ROLE_ARN` | IAM role for OIDC — **preferred** |
 
-   The build assumes a root path. If you ever publish without a custom domain,
-   set the repository variable `VITE_BASE` to `/macquery/`.
+If OIDC is more setup than you want right now, add `AWS_ACCESS_KEY_ID` and
+`AWS_SECRET_ACCESS_KEY` instead and leave `AWS_ROLE_ARN` unset. The workflow
+handles either without edits, but OIDC issues short-lived credentials per run
+rather than parking long-lived keys in the repository, so prefer it.
 
-3. **Optional:** add a deployment protection rule on the `github-pages`
-   environment so only tags can deploy.
+The IAM role or user needs `s3:ListBucket` and `s3:PutObject`/`s3:DeleteObject`
+on the bucket, plus `cloudfront:CreateInvalidation` and
+`cloudfront:GetInvalidation` on the distribution. Nothing wider.
 
-The previous `static.yml` workflow has been removed. It uploaded the repository
-root (`path: '.'`) and never ran a build, so it could only ever publish
-unbuilt source. The `gh-pages` npm script and dependency are gone too — there
-is now one way to publish, not three.
+Optionally add a protection rule on the `production` environment so only tags
+can deploy to it.
+
+## What was removed and why
+
+- **`static.yml`** uploaded the repository root (`path: '.'`) and never ran a
+  build, so GitHub Pages could only ever serve unbuilt source. That is why
+  `karammm.github.io/macquery/` still ships an `index.html` pointing at
+  `/src/main.jsx`, which resolves only under the Vite dev server. It never
+  published the real site; CloudFront did.
+- **The `gh-pages` script and dependency**, which was a third, manual way to
+  publish to a branch nothing served. There is now one path to production.
