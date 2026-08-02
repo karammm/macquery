@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Twitter, Instagram, Linkedin, Github, ArrowUp } from 'lucide-react'
 import macqueryLogo from '../assets/images/mqlogo.png'
+import { openCookieSettings } from '../lib/consent'
 
 const columns = {
   Services: [
@@ -73,6 +74,13 @@ export default function Footer() {
             <a href="https://www.macquery.in" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">
               macquery.in
             </a>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="text-text-muted hover:text-purple-400 transition-colors cursor-pointer"
+            >
+              Cookie settings
+            </button>
           </div>
           <button
             type="button"

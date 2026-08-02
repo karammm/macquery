@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import FloatingCTA from '../components/FloatingCTA'
+import CookieConsent from '../components/CookieConsent'
 import SmoothScroll from '../components/SmoothScroll'
 import ScrollProgress from '../components/ScrollProgress'
 import LiquidBackground from '../components/LiquidBackground'
@@ -22,6 +23,7 @@ export default function MainLayout() {
           <Footer />
         </div>
         <FloatingCTA />
+        <CookieConsent />
       </div>
     </SmoothScroll>
   )
