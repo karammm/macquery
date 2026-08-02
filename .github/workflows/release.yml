@@ -1,9 +1,10 @@
 name: Release
 
 # Publishing is tag-driven. Pushing a semver tag builds the site, deploys it to
-# GitHub Pages and cuts a GitHub Release.
+# the S3 bucket behind CloudFront that serves www.macquery.in, and cuts a
+# GitHub Release.
 #
-#   git tag v1.2.3 && git push origin v1.2.3
+#   npm run release:patch     # or release:minor / release:major
 #
 # Stable tags (v1.2.3) deploy to production. Pre-release tags (v1.2.3-beta.1)
 # are built and published as a GitHub pre-release but deliberately do NOT
@@ -18,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       deploy:
-        description: 'Deploy the current ref to Pages'
+        description: 'Deploy the current ref to production'
         type: boolean
         default: false
 
@@ -28,7 +29,7 @@ permissions:
 # Never let two deployments race. Not cancel-in-progress: a half-finished
 # deploy is worse than a queued one.
 concurrency:
-  group: pages
+  group: production-deploy
   cancel-in-progress: false
 
 jobs:
@@ -110,33 +111,116 @@ jobs:
         run: npm ci
 
       - name: Build
-        # VITE_BASE lets the same workflow serve a custom domain at the root
-        # (the default) or a project page under /macquery/. Set the repository
-        # variable VITE_BASE to '/macquery/' if the custom domain is removed.
+        # The site is served from the root of www.macquery.in, so the default
+        # base of '/' is correct. VITE_BASE exists for the case where it is
+        # ever served from a subpath instead.
         env:
           VITE_BASE: ${{ vars.VITE_BASE || '/' }}
         run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
         with:
+          name: dist
           path: dist
+          retention-days: 7
 
   deploy:
-    name: Deploy to GitHub Pages
+    name: Deploy to S3 and CloudFront
     needs: [verify, build]
     if: needs.verify.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
+      contents: read
+      id-token: write # required for OIDC; harmless when using access keys
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: production
+      url: https://www.macquery.in/
     steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Check deployment secrets are present
+        env:
+          BUCKET: ${{ secrets.S3_BUCKET }}
+          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          REGION: ${{ secrets.AWS_REGION }}
+          ROLE: ${{ secrets.AWS_ROLE_ARN }}
+          KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        run: |
+          set -euo pipefail
+          missing=()
+          [ -n "$BUCKET" ]       || missing+=(S3_BUCKET)
+          [ -n "$DISTRIBUTION" ] || missing+=(CLOUDFRONT_DISTRIBUTION_ID)
+          [ -n "$REGION" ]       || missing+=(AWS_REGION)
+          [ -n "$ROLE" ] || [ -n "$KEY_ID" ] || missing+=("AWS_ROLE_ARN or AWS_ACCESS_KEY_ID")
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Missing repository secrets: ${missing[*]}. See RELEASING.md."
+            exit 1
+          fi
+
+      - name: Configure AWS credentials
+        # Prefers OIDC. If AWS_ROLE_ARN is unset the action falls back to the
+        # static access key pair, so either setup works without editing this.
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync hashed assets
+        # Vite fingerprints everything under /assets, so those filenames change
+        # whenever their contents do and can be cached indefinitely. --delete
+        # is filtered by the excludes, so it will not touch the entry points.
+        env:
+          BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          aws s3 sync dist/ "s3://${BUCKET}" --delete \
+            --exclude "*.html" --exclude "robots.txt" --exclude "sitemap.xml" \
+            --cache-control "public,max-age=31536000,immutable"
+
+      - name: Sync entry points
+        # These keep stable names, so they must revalidate or visitors keep
+        # getting the old index.html pointing at assets that no longer exist.
+        env:
+          BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          aws s3 sync dist/ "s3://${BUCKET}" \
+            --exclude "*" --include "*.html" --include "robots.txt" --include "sitemap.xml" \
+            --cache-control "public,max-age=0,must-revalidate"
+
+      - name: Invalidate CloudFront
+        # One wildcard path counts as a single invalidation, which stays inside
+        # the free monthly allowance at any sane release cadence.
+        env:
+          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          ID=$(aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION" \
+            --paths "/*" \
+            --query 'Invalidation.Id' --output text)
+          echo "Invalidation $ID created; waiting for it to complete."
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "$DISTRIBUTION" --id "$ID"
+
+      - name: Verify the live site is serving this build
+        run: |
+          set -euo pipefail
+          EXPECTED=$(grep -oE '/assets/index-[A-Za-z0-9_-]+\.js' dist/index.html | head -1)
+          echo "Expecting live site to reference $EXPECTED"
+          for i in $(seq 1 10); do
+            if curl -sf https://www.macquery.in/ | grep -q "$EXPECTED"; then
+              echo "Live site is serving this build."
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::www.macquery.in is not serving $EXPECTED after the invalidation completed."
+          exit 1
 
   release:
     name: Publish GitHub Release
