@@ -1,151 +1,83 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import { Globe, Smartphone, Search, Cloud, BrainCircuit, Palette, Box, FileText, ArrowUpRight, X, CheckCircle2, Cpu } from 'lucide-react'
+import { ClipboardCheck, ShieldCheck, FileCheck2, ArrowUpRight, X, CheckCircle2, Cpu } from 'lucide-react'
 import SectionHeader from './ui/SectionHeader'
 
 const services = [
   {
-    icon: Globe,
-    title: 'Web Development',
-    desc: 'Custom websites and web apps built with React, Next.js, and modern tech stacks. Blazing fast and fully responsive.',
-    color: 'from-blue-500 to-cyan-500',
-    detail: {
-      overview: 'We build high-performance web applications using cutting-edge frameworks and tools. From single-page apps to complex enterprise platforms, every project is crafted for speed, accessibility, and scalability.',
-      benefits: [
-        'SEO-optimized server-side rendering for maximum visibility',
-        'Responsive design that works flawlessly on every device',
-        'Blazing fast load times with code splitting and lazy loading',
-        'Real-time features with WebSocket integration',
-      ],
-      technologies: ['React', 'Angular', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'PostgreSQL'],
-      timeline: '4–8 weeks',
-      deliverables: ['Fully Responsive Website', 'CMS Integration', 'Analytics Dashboard', 'SEO Setup', 'Deployment & CI/CD'],
-    },
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile Apps',
-    desc: 'Native and cross-platform apps for iOS and Android that users love. Built with React Native and Flutter.',
-    color: 'from-emerald-500 to-teal-500',
-    detail: {
-      overview: 'We specialize in creating robust, scalable mobile applications that drive business growth. Our team leverages cutting-edge technologies to deliver solutions that are not only functional but also future-proof.',
-      benefits: [
-        'Reduced development time by 40% using modern frameworks',
-        'Scalable architecture supporting millions of users',
-        'Cross-platform compatibility ensuring maximum reach',
-        'Real-time synchronization across all devices',
-      ],
-      technologies: ['React Native', 'Flutter', 'Node.js', 'MongoDB', 'Redis', 'WebRTC'],
-      timeline: '3–6 months',
-      deliverables: ['Mobile Applications', 'Web Dashboard', 'Admin Panel', 'API Documentation', 'Deployment Guide'],
-    },
-  },
-  {
-    icon: Search,
-    title: 'SEO & Growth',
-    desc: 'Data-driven SEO strategies that improve rankings, increase organic traffic, and accelerate sustainable growth.',
-    color: 'from-amber-500 to-orange-500',
-    detail: {
-      overview: 'Our growth team combines technical SEO, content strategy, and analytics to build a sustainable acquisition engine. We focus on long-term organic growth, not short-lived hacks.',
-      benefits: [
-        'Comprehensive technical and on-page SEO audits',
-        'Keyword strategy aligned with buyer intent',
-        'Measurable traffic and conversion improvements',
-        'Ongoing performance monitoring and iteration',
-      ],
-      technologies: ['Google Analytics', 'Search Console', 'Ahrefs', 'Semrush', 'Screaming Frog', 'Schema Markup'],
-      timeline: '3–6 months (ongoing)',
-      deliverables: ['SEO Audit Report', 'Keyword Strategy', 'Content Calendar', 'Monthly Performance Reports', 'Backlink Plan'],
-    },
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Solutions',
-    desc: 'Scalable cloud infrastructure and DevOps pipelines that keep your apps fast, secure, and always available.',
+    icon: ClipboardCheck,
+    title: 'EU AI Act Readiness',
+    desc: 'Classify every AI system you operate, find where you fall short, and get a dated remediation plan you can put in front of a board.',
     color: 'from-violet-500 to-purple-600',
     detail: {
-      overview: 'We architect and manage cloud infrastructure that scales effortlessly with your business. From containerized microservices to serverless functions, we design for reliability and cost efficiency.',
+      overview:
+        'Most organisations cannot yet answer the first question a regulator asks: which AI systems do you operate, and what risk tier is each one in? We inventory them, classify them against the Act, and separate what is genuinely urgent from what is not. Article 50 transparency duties apply from 2 August 2026. High-risk obligations were deferred — Annex III standalone systems to 2 December 2027 and Annex I product-embedded systems to 2 August 2028 — so the sequencing matters as much as the gap list.',
       benefits: [
-        '99.99% uptime with multi-region deployments',
-        'Auto-scaling infrastructure that handles traffic spikes',
-        'Reduced cloud costs through resource optimization',
-        'Automated CI/CD pipelines for rapid delivery',
+        'A defensible inventory and risk classification of every AI system in scope',
+        'Article 50 transparency gaps identified against the obligations already in force',
+        'Remediation sequenced by real deadline, so you are not paying for 2028 work today',
+        'Board-ready summary that survives contact with legal and procurement',
       ],
-      technologies: ['AWS', 'Google Cloud', 'Docker', 'Kubernetes', 'Terraform', 'GitHub Actions'],
-      timeline: '2–6 weeks',
-      deliverables: ['Cloud Architecture Design', 'Infrastructure Setup', 'CI/CD Pipelines', 'Monitoring & Alerts', 'Security Hardening'],
+      technologies: ['EU AI Act', 'Annex I & III', 'Article 50', 'ISO/IEC 42001', 'NIST AI RMF', 'Commission guidelines (July 2026)'],
+      timeline: '3–5 weeks',
+      deliverables: ['AI System Inventory', 'Risk Classification', 'Gap Analysis', 'Sequenced Remediation Roadmap', 'Executive Briefing'],
     },
   },
   {
-    icon: BrainCircuit,
-    title: 'AI & Automation',
-    desc: 'Intelligent automation and AI-powered features that streamline operations and unlock new capabilities.',
-    color: 'from-purple-500 to-violet-600',
+    icon: ShieldCheck,
+    title: 'GDPR-Safe GenAI Architecture',
+    desc: 'RAG and LLM systems designed so personal data stays inside the EEA, stays out of training sets, and stays explainable to your DPO.',
+    color: 'from-emerald-500 to-teal-500',
     detail: {
-      overview: 'We integrate artificial intelligence and machine learning into your products and workflows. From chatbots to predictive analytics, we help you automate the mundane and amplify what matters.',
+      overview:
+        'Most GenAI pilots stall at the privacy review, not the demo. The usual blockers are the same three: nobody can say where the data physically sits, nobody can prove prompts and outputs are not being trained on, and nobody can produce a retention limit. We architect around those constraints from the start rather than retrofitting them.',
       benefits: [
-        'Automated repetitive tasks saving 60%+ of manual effort',
-        'Intelligent recommendations that boost user engagement',
-        'Natural language processing for smarter user interactions',
-        'Predictive analytics for data-driven decision making',
+        'Inference and storage pinned to EU regions, with the data flows documented',
+        'Contractual and technical guarantees that prompts and outputs are not used for training',
+        'Retention, deletion and access controls your DPO can audit rather than take on trust',
+        'DPIA input prepared alongside the build, not reconstructed afterwards',
       ],
-      technologies: ['OpenAI', 'LangChain', 'Python', 'TensorFlow', 'Pinecone', 'Hugging Face'],
+      technologies: ['EU-region inference', 'Retrieval-augmented generation', 'PII detection & redaction', 'Pseudonymisation', 'DPIA support', 'Evaluation harnesses'],
       timeline: '4–10 weeks',
-      deliverables: ['AI Feature Integration', 'Custom ML Models', 'API Endpoints', 'Training Data Pipeline', 'Performance Benchmarks'],
+      deliverables: ['Reference Architecture', 'Data Flow Map', 'DPIA Input Pack', 'Retention & Access Model', 'Working Implementation'],
     },
   },
   {
-    icon: Palette,
-    title: 'UI/UX Design',
-    desc: 'Pixel-perfect interfaces and intuitive user experiences that look stunning and convert visitors into customers.',
-    color: 'from-pink-500 to-rose-500',
+    icon: FileCheck2,
+    title: 'AI Governance (ISO/IEC 42001)',
+    desc: 'Stand up the AI management system enterprise buyers now ask for in RFPs — model documentation, human oversight, logging, and audit trail.',
+    color: 'from-sky-500 to-indigo-500',
     detail: {
-      overview: 'Our design process is rooted in user research and iterative prototyping. We craft interfaces that are beautiful, accessible, and laser-focused on your business goals.',
+      overview:
+        'ISO/IEC 42001 has moved quickly from nice-to-have to procurement filter — "are you certified, or implementing?" now appears routinely in EU enterprise AI vendor questionnaires. It is also the most direct way to evidence the governance the AI Act expects. We build the management system as something your teams actually operate, not a binder that ages badly.',
       benefits: [
-        'User-centered design backed by research and testing',
-        'Consistent design systems that scale with your product',
-        'Increased conversion rates through UX optimization',
-        'Accessible designs meeting WCAG 2.1 standards',
+        'A working AI management system, not documentation written to be filed',
+        'Model cards, evaluation records and change logs generated as a by-product of delivery',
+        'Human oversight and incident escalation defined with named owners',
+        'Evidence organised so an external audit is a review rather than an excavation',
       ],
-      technologies: ['Figma', 'Framer', 'Adobe Creative Suite', 'Storybook', 'Tailwind CSS', 'Lottie'],
-      timeline: '2–4 weeks',
-      deliverables: ['Wireframes', 'High-Fidelity Mockups', 'Interactive Prototype', 'Design System', 'Developer Handoff'],
+      technologies: ['ISO/IEC 42001', 'ISO/IEC 27001', 'NIST AI RMF', 'Model documentation', 'Audit logging', 'Evaluation pipelines'],
+      timeline: '8–16 weeks',
+      deliverables: ['AIMS Documentation Set', 'Model Cards & Eval Records', 'Human Oversight Procedures', 'Audit Log Design', 'Certification Readiness Review'],
     },
   },
   {
-    icon: Box,
-    title: '3D Design',
-    desc: 'Immersive 3D visuals, product renders, and interactive experiences that captivate and engage your audience.',
-    color: 'from-cyan-500 to-blue-500',
+    icon: Cpu,
+    title: 'Regulated-Sector Delivery',
+    desc: 'The engineering itself — production GenAI for health, finance and public sector, built to the evidence standard those sectors demand.',
+    color: 'from-purple-500 to-fuchsia-600',
     detail: {
-      overview: 'We create stunning 3D assets, product visualizations, and interactive WebGL experiences. Whether it\'s for marketing, e-commerce, or immersive web experiences, we bring your ideas to life in three dimensions.',
+      overview:
+        'This is where an assessment-only consultancy hands you a PDF and leaves. We build the system. Cross-border logistics compliance for Velocys and role-based access with audit trails across 76K+ accounts for Magda Gallery are the same discipline applied to different regimes: the control has to work in production, and it has to be provable afterwards.',
       benefits: [
-        'Photorealistic product renders that drive conversions',
-        'Interactive 3D experiences running in the browser',
-        'Lightweight optimized assets for fast page loads',
-        'Animations that tell your brand story visually',
+        'One team writes the finding and ships the fix — no handoff, no re-scoping',
+        'Controls implemented in the system rather than described in a document',
+        'Sector regimes handled directly: MDR and IVDR, DORA, NIS2, EHDS',
+        'Handover includes the evidence pack, not just the repository',
       ],
-      technologies: ['Three.js', 'Blender', 'React Three Fiber', 'GSAP', 'Spline', 'WebGL'],
-      timeline: '2–6 weeks',
-      deliverables: ['3D Models & Assets', 'Product Renders', 'Interactive Web Scenes', 'Animation Files', 'Optimized Exports'],
-    },
-  },
-  {
-    icon: FileText,
-    title: 'Content Strategy',
-    desc: 'Professional content creation and strategy that elevates your brand voice and engages your target audience.',
-    color: 'from-teal-500 to-emerald-500',
-    detail: {
-      overview: 'We develop content strategies that align with your brand voice and business objectives. From blog posts to video scripts, we create content that resonates with your audience and drives meaningful engagement.',
-      benefits: [
-        'Brand-aligned messaging across all channels',
-        'SEO-optimized content that ranks and converts',
-        'Consistent publishing cadence that builds authority',
-        'Data-driven content decisions based on performance',
-      ],
-      technologies: ['WordPress', 'Notion', 'Google Analytics', 'Canva', 'Buffer', 'Grammarly'],
-      timeline: '2–4 weeks (ongoing)',
-      deliverables: ['Content Strategy Document', 'Editorial Calendar', 'Blog Posts & Articles', 'Social Media Copy', 'Brand Voice Guide'],
+      technologies: ['Python', 'TypeScript', 'React', 'AWS & GCP (EU regions)', 'Kubernetes', 'Terraform', 'OpenAI & open-weight models'],
+      timeline: '3–6 months',
+      deliverables: ['Production System', 'Control Implementation Evidence', 'Runbooks & Monitoring', 'Audit Trail', 'Knowledge Transfer'],
     },
   },
 ]
@@ -218,7 +150,7 @@ function ServiceModal({ service, onClose }) {
           <div>
             <h4 className="text-text text-sm font-semibold mb-3 flex items-center gap-2">
               <Cpu size={16} className="text-purple-400" />
-              Technologies Used
+              Standards &amp; tooling
             </h4>
             <div className="flex flex-wrap gap-2">
               {detail.technologies.map((t) => (
@@ -271,7 +203,7 @@ export default function Services({ preview = false, showHeader = true }) {
           <SectionHeader
             label="Services"
             title={<>Our <span className="text-gradient">Services</span></>}
-            subtitle="Comprehensive digital solutions to power your business growth — from web and mobile to AI, cloud, and design."
+            subtitle="Four engagements, in the order most clients need them — establish where you stand, design something that survives review, govern it, then build it."
           />
         )}
 
@@ -296,15 +228,18 @@ export default function Services({ preview = false, showHeader = true }) {
         </div>
       </div>
 
+      {/* The old footnote here promised a free maintenance year and excluded
+          domain and hosting costs — SMB web-shop terms that undercut a
+          consulting engagement. Commercials belong in the proposal. */}
       {!preview && (
       <div className="site-container mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-text-muted text-xs">
         <p className="flex items-center gap-2">
           <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
-          Includes 1 Year of free maintenance and support.
+          Engagements start with a scoping call, not a quote.
         </p>
         <p className="flex items-center gap-2">
           <span className="size-1 rounded-full bg-text-muted/50 shrink-0 hidden sm:block" />
-          Domain and hosting costs are not included in this pricing.
+          NDA, DPA and SCCs signed before any of your material changes hands.
         </p>
       </div>
       )}

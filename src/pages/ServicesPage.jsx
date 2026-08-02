@@ -8,32 +8,32 @@ import PoweredBy from '../components/PoweredBy'
 import Seo from '../components/Seo'
 
 const process = [
-  { icon: Compass, title: 'Discovery & strategy', desc: 'We map goals, users, tech constraints, and success metrics before writing code.' },
-  { icon: PenTool, title: 'Design & prototype', desc: 'Wireframes, UI systems, and interactive prototypes aligned to your brand.' },
-  { icon: Code2, title: 'Build & integrate', desc: 'Agile sprints with weekly demos, CI/CD, and rigorous QA on every release.' },
-  { icon: Rocket, title: 'Launch & optimize', desc: 'Deployment, monitoring, SEO, and performance tuning for production readiness.' },
-  { icon: Headphones, title: 'Support & evolve', desc: 'Maintenance on monthly basis plus ongoing feature work as you grow.' },
+  { icon: Compass, title: 'Scope & classify', desc: 'We inventory your AI systems and establish which regimes and risk tiers actually apply.' },
+  { icon: PenTool, title: 'Assess & design', desc: 'Gap analysis against the obligations in force, then an architecture that closes them.' },
+  { icon: Code2, title: 'Build & evidence', desc: 'We implement the controls in the system and generate the documentation as we go.' },
+  { icon: Rocket, title: 'Validate & hand over', desc: 'Evaluation, audit-trail review, and an evidence pack your auditors can work from.' },
+  { icon: Headphones, title: 'Monitor & re-assess', desc: 'Regulation moves. We re-test against changes and keep the documentation current.' },
 ]
 
 const engagement = [
-  { title: 'Fixed-scope projects', desc: 'Clear milestones, timeline, and deliverables — ideal for MVPs and redesigns.' },
-  { title: 'Dedicated team', desc: 'Embedded engineers and designers working as an extension of your product org.' },
-  { title: 'Retainer support', desc: 'Ongoing development, DevOps, and AI automation on a monthly basis.' },
+  { title: 'Fixed-scope assessment', desc: 'A dated readiness review with a prioritised remediation roadmap. Defined deliverables, defined fee.' },
+  { title: 'Assess and remediate', desc: 'The assessment plus the engineering to close what it finds — one team, no handoff between finding and fix.' },
+  { title: 'Embedded advisory', desc: 'Ongoing governance support as your systems and the regulation both change, on a monthly basis.' },
 ]
 
 export default function ServicesPage() {
   return (
     <>
       <Seo
-        title="Services — Web, Mobile, AI Automation, Cloud & UI/UX | MacQuery"
-        description="Explore MacQuery's services: web & mobile app development, AI automation, cloud/DevOps, SEO, ERP and UI/UX design — from MVP to enterprise scale, delivered by one senior team."
-        keywords="web development services, mobile app development, AI automation services, n8n automation, cloud DevOps AWS Azure, UI UX design, SEO services, ERP development, custom software development India"
+        title="Services — EU AI Act Readiness, GDPR-Safe GenAI & ISO 42001 | MacQuery"
+        description="EU AI Act readiness assessments, GDPR-safe GenAI architecture, ISO/IEC 42001 AI governance, and regulated-sector delivery for European companies in health, finance and public sector."
+        keywords="EU AI Act readiness assessment, AI risk classification, Article 50 compliance, GDPR-safe GenAI architecture, EU data residency AI, ISO 42001 implementation, AI governance consulting, DORA, NIS2, MDR IVDR AI software"
         path="/services"
       />
       <PageHero
         label="Services"
-        title={<>Everything you need to <span className="text-gradient">grow online</span></>}
-        subtitle="AI-first development, modern design, cloud infrastructure, and growth — delivered by one senior team from discovery through launch."
+        title={<>Compliance you can <span className="text-gradient">actually deploy</span></>}
+        subtitle="Assessment and engineering from one team. We tell you where you stand against the EU AI Act, GDPR, DORA and NIS2 — then build the controls that close the gap, with the evidence to prove it."
       />
 
       <Services showHeader={false} />
@@ -42,7 +42,8 @@ export default function ServicesPage() {
         <div className="site-container">
           <h2 className="text-2xl font-bold text-text text-center mb-4">How we work with you</h2>
           <p className="text-text-secondary text-center max-w-xl mx-auto mb-12">
-            A transparent, proven process — no black boxes, no surprise invoices.
+            Findings are traceable to the article they come from, and every engagement ends
+            with documentation an auditor can use.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {process.map((step, i) => (
