@@ -1,7 +1,9 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { Target, Shield, Wrench, FileText, HeartHandshake } from 'lucide-react'
 import SectionHeader from './ui/SectionHeader'
+import { trackRecord, FOUNDED_YEAR } from '../data/trackRecord'
+import StatCounter from './ui/StatCounter'
 
 const features = [
   {
@@ -30,32 +32,6 @@ const features = [
     desc: 'Deadlines have already moved once. We re-test against amendments and keep your documentation current.',
   },
 ]
-
-function Counter({ to, suffix = '' }) {
-  const [val, setVal] = useState(0)
-  const ref = useRef(null)
-  const done = useRef(false)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !done.current) {
-        done.current = true
-        const n = parseInt(to, 10)
-        const step = Math.max(1, Math.floor(n / 60))
-        let c = 0
-        const id = setInterval(() => {
-          c = Math.min(c + step, n)
-          setVal(c)
-          if (c >= n) clearInterval(id)
-        }, 20)
-      }
-    }, { threshold: 0.3 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [to])
-
-  return <span ref={ref}>{val}{suffix}</span>
-}
 
 export default function WhyChooseUs() {
   const ref = useRef(null)
@@ -92,17 +68,16 @@ export default function WhyChooseUs() {
           transition={{ delay: 0.3 }}
           className="p-8 lg:p-10 rounded-3xl glass-card border-accent/10 text-center"
         >
-          <h3 className="text-text font-bold text-lg mb-8">Our Track Record</h3>
+          <h3 className="text-text font-bold text-lg mb-2">Our Track Record</h3>
+          <p className="text-text-muted text-sm mb-8">
+            Building since {FOUNDED_YEAR}. Every number below is countable from the case
+            studies on this site.
+          </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { val: '10', s: '+', label: 'Projects Delivered' },
-              { val: '6', s: '+', label: 'Industries Served' },
-              { val: '99', s: '%', label: 'Client Satisfaction' },
-              { val: '8', s: '+', label: 'Years Experience' },
-            ].map((st) => (
+            {trackRecord.map((st) => (
               <div key={st.label}>
                 <div className="text-3xl lg:text-4xl font-extrabold text-gradient">
-                  <Counter to={st.val} suffix={st.s} />
+                  <StatCounter value={st.value} />
                 </div>
                 <div className="text-text-muted text-sm mt-2">{st.label}</div>
               </div>

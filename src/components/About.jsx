@@ -1,33 +1,9 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { Zap, TrendingUp, ArrowRight } from 'lucide-react'
 import SectionHeader from './ui/SectionHeader'
-
-function Counter({ to, suffix = '' }) {
-  const [val, setVal] = useState(0)
-  const ref = useRef(null)
-  const done = useRef(false)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !done.current) {
-        done.current = true
-        const n = parseInt(to, 10)
-        const step = Math.max(1, Math.floor(n / 60))
-        let c = 0
-        const id = setInterval(() => {
-          c = Math.min(c + step, n)
-          setVal(c)
-          if (c >= n) clearInterval(id)
-        }, 20)
-      }
-    }, { threshold: 0.3 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [to])
-
-  return <span ref={ref}>{val}{suffix}</span>
-}
+import { trackRecord, projectsDelivered, FOUNDED_YEAR } from '../data/trackRecord'
+import StatCounter from './ui/StatCounter'
 
 export default function About({ preview = false, showHeader = true }) {
   const ref = useRef(null)
@@ -57,7 +33,7 @@ export default function About({ preview = false, showHeader = true }) {
               </h2>
             )}
             <p className="text-text-secondary text-base leading-relaxed mb-10">
-              MacQuery bridges bold ideas and high-impact digital products. From AI automation to full-scale app ecosystems, we build foundations that help you launch, scale, and grow — based in New Delhi, serving clients worldwide.
+              MacQuery bridges bold ideas and high-impact digital products. From AI automation to full-scale app ecosystems, we build foundations that help you launch, scale, and grow — building since {FOUNDED_YEAR} from Gurugram and Dehradun, serving clients worldwide.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-10">
@@ -90,23 +66,18 @@ export default function About({ preview = false, showHeader = true }) {
             className="relative"
           >
             <div className="p-8 lg:p-10 rounded-3xl glass-card border-purple-500/20">
-              <p className="text-text-muted text-sm mb-2">Partners globally</p>
+              <p className="text-text-muted text-sm mb-2">Projects delivered</p>
               <div className="text-6xl lg:text-7xl font-extrabold text-gradient mb-8">
-                <Counter to="10" suffix="+" />
+                <StatCounter value={String(projectsDelivered)} />
               </div>
               <p className="text-text-secondary text-sm leading-relaxed mb-8">
                 Engineered to transform complex challenges into elegant digital solutions — web, mobile, cloud, and AI under one roof.
               </p>
               <div className="grid grid-cols-2 gap-6 pt-6 border-t border-border">
-                {[
-                  { val: '10', s: '+', label: 'Projects' },
-                  { val: '6', s: '+', label: 'Clients' },
-                  { val: '99', s: '%', label: 'Satisfaction' },
-                  { val: '8', s: '+', label: 'Years' },
-                ].map((st) => (
+                {trackRecord.map((st) => (
                   <div key={st.label}>
                     <div className="text-2xl font-extrabold text-text">
-                      <Counter to={st.val} suffix={st.s} />
+                      <StatCounter value={st.value} />
                     </div>
                     <div className="text-text-muted text-xs mt-1">{st.label}</div>
                   </div>
