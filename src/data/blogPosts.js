@@ -1,5 +1,43 @@
 export const blogPosts = [
   {
+    slug: 'eu-ai-act-article-50-transparency',
+    category: 'EU AI Act',
+    title: 'Article 50 applies from today. Here is what it actually requires.',
+    excerpt:
+      'Chatbot disclosure, machine-readable labelling of AI-generated media, and deepfake notice — the transparency obligations that took effect on 2 August 2026, and what compliance looks like in code.',
+    date: 'Aug 2, 2026',
+    readTime: '7 min read',
+    content: [
+      'The EU AI Act\'s transparency obligations under Article 50 apply from today, 2 August 2026. Unlike the high-risk requirements — which were deferred — this date did not move. The European Commission published its final guidelines on 20 July 2026 and confirmed the accompanying Code of Practice on Transparency of AI-Generated Content, so the interpretive ground is now settled rather than speculative.',
+      'There are four distinct duties, and organisations routinely assume they are subject to one when they are subject to three. The first: any AI system that interacts directly with a natural person must inform that person they are dealing with AI. This is a provider obligation, it applies at the start of the interaction, and the disclosure has to be clear rather than buried in an interface. A support widget that only reveals its nature in a collapsed tooltip does not satisfy it.',
+      'The second duty is the one with real engineering weight. Providers of systems generating synthetic audio, image, video or text must mark those outputs as artificially generated in a machine-readable format, and where feasible in a way the end user can perceive. Machine-readable is the operative phrase — a visible watermark alone does not discharge it. In practice this means provenance metadata attached at generation time and preserved through your pipeline, which is where most implementations quietly fail: the marking survives the model call and is then stripped by a downstream image resize or a CMS import.',
+      'Third, deployers of systems producing deepfakes — image, audio or video content that appreciably resembles real people, objects or events — must disclose that the content is artificially generated. This is a deployer duty, not a provider one, so it attaches to the organisation publishing the content rather than to the vendor of the model.',
+      'Fourth, deployers publishing AI-generated or AI-manipulated text to inform the public on matters of public interest must disclose that too. Marketing copy is generally outside this; a newsroom or a public body publishing analysis is not.',
+      'There are carve-outs. Where content forms part of an evidently artistic, creative, satirical or fictional work, the obligation narrows to disclosing the existence of generated content in a manner that does not spoil the work. This is a real exemption, but it is narrower than the way it usually gets cited internally.',
+      'Non-compliance carries administrative fines up to €15 million or 3% of total worldwide annual turnover, whichever is higher. That is below the €35 million / 7% ceiling reserved for prohibited practices, but it applies to a far broader set of deployments — and unlike high-risk conformity work, there is no runway left to plan against.',
+      'The practical starting point is an inventory, not a policy. Enumerate every place a model touches something a person will see: support chat, generated product imagery, summarisation in your app, drafted outbound email. For each, decide whether you are provider or deployer, which of the four duties attaches, and whether your provenance metadata actually survives the full pipeline to publication. Most of the remediation we see is plumbing rather than legal work — and it is the plumbing that takes the time.',
+    ],
+  },
+  {
+    slug: 'high-risk-deadline-deferral-what-changed',
+    category: 'EU AI Act',
+    title: 'The high-risk deadline moved to 2027. Four things did not.',
+    excerpt:
+      'The Digital Omnibus deferred Annex III obligations to December 2027 and Annex I to August 2028. Reading that as a general reprieve is the expensive mistake.',
+    date: 'Jul 28, 2026',
+    readTime: '6 min read',
+    content: [
+      'The deferral of the EU AI Act\'s high-risk obligations has been widely reported as breathing room, and for some organisations it genuinely is. But the reprieve is narrower than the headlines suggest, and we have already seen teams stand down programmes that address obligations which were never postponed.',
+      'What did move: new or substantially modified high-risk systems listed in Annex III — the standalone use cases including creditworthiness assessment, insurance risk pricing, employment screening, education access and certain public-service eligibility decisions — now have until 2 December 2027. Systems that are products or safety components of products already governed by EU product-safety law under Annex I, such as medical devices, machinery and lifts, have until 2 August 2028. That is a sixteen-month and twelve-month postponement respectively.',
+      'What did not move, first: Article 50 transparency. Chatbot disclosure and the labelling of AI-generated content apply from 2 August 2026, and the Commission issued final guidelines in July 2026. If you operate customer-facing AI, your live obligation is this one, not the 2027 date.',
+      'Second: the Article 5 prohibition covering the generation of non-consensual intimate imagery carries a 2 December 2026 date of its own. Prohibitions are the tier with the €35 million / 7% ceiling.',
+      'Third: obligations on providers of general-purpose AI models have applied since August 2025. Organisations fine-tuning or substantially modifying a general-purpose model can find themselves treated as a provider, which is a status question worth resolving before it is decided for you.',
+      'Fourth, and least discussed: nothing about GDPR changed. If your AI system processes personal data, Articles 5, 6, 22, 35 and the transfer rules apply today and applied before the AI Act existed. In our experience most GenAI programmes stall on a data protection impact assessment or a residency question long before an AI Act classification becomes the blocker.',
+      'The sensible response to a deferral is re-sequencing, not cancellation. Conformity assessment, technical documentation, logging and post-market monitoring for a high-risk system is not work that compresses well into a final quarter — and the two-tier structure means an organisation with both Annex I and Annex III systems is now managing two separate deadlines against one backlog.',
+      'Our own advice to clients has been consistent since the omnibus: keep the classification work, which is cheap and tells you which clock you are on; keep everything addressing obligations already in force; and move the expensive conformity work to match its real date rather than the one you originally planned against. Paying in 2026 for a 2028 obligation is not prudence, it is just an early invoice.',
+    ],
+  },
+  {
     slug: 'ai-automation-n8n',
     category: 'AI & Automation',
     title: 'How we build AI scrapers and workflows with n8n',
