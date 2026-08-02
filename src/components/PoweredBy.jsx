@@ -40,9 +40,12 @@ export default function PoweredBy({ showCta = true }) {
           transition={{ delay: 0.25 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
         >
+          {/* A live-looking "All systems operational" pill used to sit here,
+              wired to nothing. A fake status indicator is a liability with
+              buyers who check, and these are buyers who check. */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-400 text-xs font-medium">
-            <span className="size-2 rounded-full bg-purple-400 animate-pulse" />
-            All systems operational
+            <span className="size-2 rounded-full bg-purple-400" />
+            EU-region deployment by default
           </div>
           {showCta && (
             <Link to="/services" className="btn-outline text-sm">

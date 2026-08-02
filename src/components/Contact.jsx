@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Send, Mail, Phone, MapPin, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
+import { Send, Mail, Phone, MapPin, CheckCircle2, Loader2, AlertCircle, FileCheck } from 'lucide-react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { LAST_UPDATED } from '../data/legal'
@@ -66,10 +66,12 @@ export default function Contact({ hideHeader = false }) {
               <>
                 <span className="section-label">Contact</span>
                 <h2 className="text-3xl lg:text-4xl font-extrabold text-text tracking-tight mb-5">
-                  Get a <span className="text-gradient">free consultation</span>
+                  Book a <span className="text-gradient">scoping call</span>
                 </h2>
                 <p className="text-text-secondary text-base leading-relaxed mb-4">
-                  Have a project in mind? Drop us a message and we&apos;ll get back to you within 24 hours.
+                  Tell us which AI systems you operate and where you think the exposure is. We
+                  reply within one business day, and we will say plainly if an engagement is not
+                  warranted yet.
                 </p>
               </>
             )}
@@ -80,7 +82,8 @@ export default function Contact({ hideHeader = false }) {
             <div className="space-y-8">
               {[
                 { icon: Mail, label: 'info@macquery.in', sub: 'Email us anytime' },
-                { icon: Phone, label: '+91 93802 16302', sub: 'Mon–Sat, 9AM–8PM IST' },
+                { icon: Phone, label: '+91 93802 16302', sub: 'Mon–Sat · 09:00–20:00 IST, overlapping 05:30–16:30 CET' },
+                { icon: FileCheck, label: 'SCCs, TIA and DPA on request', sub: 'Sent before you share anything confidential' },
                 { icon: MapPin, label: 'Tag Tower 28, Sector 18, Gurugram, India', sub: 'SIILARD LABS LLP' },
                 { icon: MapPin, label: 'IT Park, Sahastradhara Road, Dehradun, India', sub: 'Sales Center' },
               ].map((c) => (
@@ -110,8 +113,8 @@ export default function Contact({ hideHeader = false }) {
                   <div className="size-16 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-5">
                     <CheckCircle2 size={32} className="text-purple-400" />
                   </div>
-                  <h4 className="text-xl font-bold text-text mb-2">Message sent!</h4>
-                  <p className="text-text-muted text-sm">We'll get back to you within 24 hours.</p>
+                  <h4 className="text-xl font-bold text-text mb-2">Message sent</h4>
+                  <p className="text-text-muted text-sm">We&apos;ll reply within one business day.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={submit} className="space-y-5">
