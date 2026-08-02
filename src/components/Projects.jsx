@@ -1,4 +1,4 @@
-import { AnimatePresence, motion as Motion, useInView } from 'framer-motion'
+import { motion as Motion, useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import SectionHeader from './ui/SectionHeader'
 import { getLenis } from './SmoothScroll'
@@ -300,7 +300,6 @@ function ProjectDetailsModal({ project, onClose }) {
     <Motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       className="fixed inset-0 z-[80] p-4 flex items-center justify-center"
       onClick={onClose}
     >
@@ -308,7 +307,6 @@ function ProjectDetailsModal({ project, onClose }) {
       <Motion.div
         initial={{ opacity: 0, y: 18, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 12, scale: 0.98 }}
         transition={{ duration: 0.22 }}
         onClick={(e) => e.stopPropagation()}
         data-lenis-prevent
@@ -539,14 +537,15 @@ export default function Projects({ preview = false, showHeader = true }) {
           ))}
         </div>
       </div>
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectDetailsModal
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
-        )}
-      </AnimatePresence>
+      {/* Plain conditional render: AnimatePresence runs the exit animation but
+          never unmounts the child, so the modal's cleanup effect never fires and
+          body overflow stays hidden — the page freezes. */}
+      {selectedProject && (
+        <ProjectDetailsModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </section>
   )
 }
