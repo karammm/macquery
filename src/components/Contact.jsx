@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Send, Mail, Phone, MapPin, CheckCircle2, Loader2 } from 'lucide-react'
+import { Send, Mail, Phone, MapPin, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { LAST_UPDATED } from '../data/legal'
 
 const projectTypes = [
   'Web Development',
@@ -18,25 +20,35 @@ const projectTypes = [
 
 const inputCls = 'w-full px-5 py-3.5 rounded-xl bg-bg border border-border text-text text-sm placeholder-text-muted focus:outline-none focus:border-purple-500/40 focus:ring-1 focus:ring-purple-500/20 transition-all'
 
+const emptyForm = { name: '', email: '', phone: '', projectType: '', message: '' }
+
 export default function Contact({ hideHeader = false }) {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', projectType: '', message: '' })
+  const [form, setForm] = useState(emptyForm)
+  const [marketingOptIn, setMarketingOptIn] = useState(false)
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const set = (e) => setForm({ ...form, [e.target.name]: e.target.value })
   const submit = async (e) => {
     e.preventDefault()
     setLoading(true)
+    setError('')
     try {
       await addDoc(collection(db, 'contacts'), {
         ...form,
-        createdAt: serverTimestamp()
+        // Consent evidence: Art. 7(1) requires us to be able to demonstrate
+        // that consent was given, for what, and against which notice.
+        marketingOptIn,
+        privacyNoticeVersion: LAST_UPDATED,
+        createdAt: serverTimestamp(),
       })
       setSent(true)
-      setTimeout(() => setSent(false), 4000)
-      setForm({ name: '', email: '', phone: '', projectType: '', message: '' })
+      setTimeout(() => setSent(false), 6000)
+      setForm(emptyForm)
+      setMarketingOptIn(false)
     } catch (err) {
       console.error('Firebase error:', err)
-      alert('Something went wrong. Please try again.')
+      setError('We could not send that. Please try again, or email us directly at info@macquery.in.')
     } finally {
       setLoading(false)
     }
@@ -133,6 +145,43 @@ export default function Contact({ hideHeader = false }) {
                     <label className="block text-sm font-medium text-text-secondary mb-2">Message *</label>
                     <textarea name="message" value={form.message} onChange={set} required rows={5} placeholder="Tell us about your project..." className={`${inputCls} resize-none`} />
                   </div>
+                  {/* Optional and unticked. The enquiry itself does not need
+                      consent — its basis is Art. 6(1)(b), pre-contractual
+                      steps — so gating the form on a tick would be both
+                      unnecessary and invalid, since consent bundled into a
+                      required action is not freely given. Marketing is a
+                      separate purpose, so it gets its own opt-in. */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="marketingOptIn"
+                      checked={marketingOptIn}
+                      onChange={(e) => setMarketingOptIn(e.target.checked)}
+                      className="mt-0.5 size-4 shrink-0 rounded border-border bg-bg accent-purple-600 cursor-pointer"
+                    />
+                    <span className="text-text-muted text-xs leading-relaxed">
+                      Optional: send me occasional updates on EU AI Act and GDPR developments
+                      relevant to my sector. You can unsubscribe at any time.
+                    </span>
+                  </label>
+
+                  <p className="text-text-muted text-xs leading-relaxed">
+                    We use these details only to answer your enquiry. They are stored by
+                    SIILARD LABS LLP and our processors, never sold, and never used to build
+                    advertising profiles. See the{' '}
+                    <Link to="/privacy" className="text-purple-400 hover:text-purple-300">
+                      Privacy Policy
+                    </Link>{' '}
+                    for retention periods, international transfers and how to request erasure.
+                  </p>
+
+                  {error && (
+                    <p role="alert" className="flex items-start gap-2.5 text-red-400 text-xs leading-relaxed">
+                      <AlertCircle size={14} className="shrink-0 mt-0.5" />
+                      {error}
+                    </p>
+                  )}
+
                   <motion.button
                     type="submit"
                     disabled={loading}
