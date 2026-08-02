@@ -1,65 +1,8 @@
 import { motion } from 'framer-motion'
 import { Quote, Star } from 'lucide-react'
 import SectionHeader from './ui/SectionHeader'
+import { testimonials } from '../data/testimonials'
 
-const testimonials = [
-  {
-    name: 'Aymar de Gunzburg',
-    role: 'Founder',
-    company: 'Siila.org',
-    initials: 'AG',
-    text: 'What impressed us the most was how available and responsive the team was throughout the entire process. Every question was answered quickly, and the end result exceeded our expectations.',
-    tags: ['Web Development', 'Cloud Solutions'],
-  },
-  {
-    name: 'Aman Kumar',
-    role: 'Director',
-    company: 'Kumar Jewellers',
-    initials: 'AK',
-    text: 'From day one, the communication was seamless. They walked us through every decision, kept timelines tight, and were genuinely invested in our success. Our customers love the final product.',
-    tags: ['Mobile Apps', 'UI/UX Design'],
-  },
-  {
-    name: 'Sumeda Panwar',
-    role: 'Marketing Head',
-    company: 'Regalo',
-    initials: 'SP',
-    text: 'Their strategic approach set them apart. Before writing a single line of code, they spent time understanding our market, audience, and goals. The entire experience was effortless.',
-    tags: ['SEO & Growth', 'Content Strategy'],
-  },
-  {
-    name: 'Magda Laroche',
-    role: 'Operations Director',
-    company: 'Magda Gallery',
-    initials: 'ML',
-    text: 'They turned a tangle of disconnected tools into one ERP our whole team actually trusts. Publishing, accounting, and outreach finally talk to each other — and the role-based access gave us real peace of mind at scale.',
-    tags: ['ERP', 'Process Automation'],
-  },
-  {
-    name: 'Dr. Rakesh Sharma',
-    role: 'Founder',
-    company: 'Abhidhya',
-    initials: 'RS',
-    text: 'Our biggest fear was the platform crashing during live exams. It never did. Thousands of students competed at once and everything stayed fast and fair. The engineering depth here is real.',
-    tags: ['Scalability', 'EdTech'],
-  },
-  {
-    name: 'Daniel Okoro',
-    role: 'Head of Logistics',
-    company: 'Velocys',
-    initials: 'DO',
-    text: 'We used to find out about shipment problems far too late. Now disruptions and compliance risks surface early, with a clear recovery path. It has genuinely changed how our cross-border operations run.',
-    tags: ['Logistics', 'AI Solutions'],
-  },
-  {
-    name: 'Priya Nair',
-    role: 'CTO',
-    company: 'Meghnify',
-    initials: 'PN',
-    text: 'They cut our cloud spend without us ever feeling a dip in reliability. Releases are faster and safer, and we finally have observability we can act on. A true engineering partner, not just a vendor.',
-    tags: ['Cloud & DevOps', 'Cost Optimization'],
-  },
-]
 
 function TestimonialCard({ t }) {
   return (
