@@ -8,6 +8,10 @@ import BlogPage from './pages/BlogPage'
 import BlogPostPage from './pages/BlogPostPage'
 import ContactPage from './pages/ContactPage'
 import ProjectsPage from './pages/ProjectsPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import CookiePolicyPage from './pages/CookiePolicyPage'
+import TermsPage from './pages/TermsPage'
+import ImprintPage from './pages/ImprintPage'
 
 export default function App() {
   return (
@@ -22,6 +26,10 @@ export default function App() {
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog/:slug" element={<BlogPostPage />} />
           <Route path="contact" element={<ContactPage />} />
+          <Route path="privacy" element={<PrivacyPolicyPage />} />
+          <Route path="cookies" element={<CookiePolicyPage />} />
+          <Route path="terms" element={<TermsPage />} />
+          <Route path="imprint" element={<ImprintPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

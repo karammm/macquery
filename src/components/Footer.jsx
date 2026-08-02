@@ -21,6 +21,12 @@ const columns = {
     { label: 'Testimonials', to: '/about' },
     { label: 'Team', to: '/about' },
   ],
+  Legal: [
+    { label: 'Privacy Policy', to: '/privacy' },
+    { label: 'Cookie Policy', to: '/cookies' },
+    { label: 'Terms of Use', to: '/terms' },
+    { label: 'Imprint', to: '/imprint' },
+  ],
 }
 
 const social = [
@@ -34,7 +40,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-bg-elevated">
       <div className="site-container">
-        <div className="py-16 lg:py-20 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 lg:gap-14">
+        <div className="py-16 lg:py-20 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 lg:gap-14">
           <div className="col-span-2 md:col-span-4 lg:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 mb-5">
               <img src={macqueryLogo} alt="MacQuery" className="size-10 object-contain drop-shadow-[0_2px_10px_rgba(168,85,247,0.55)]" />
