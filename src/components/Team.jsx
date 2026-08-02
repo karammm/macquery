@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Linkedin, Twitter, Github } from 'lucide-react'
 import Reveal from './Reveal'
 import karamPhoto from '../assets/images/karam.JPG'
@@ -170,20 +170,17 @@ function MemberRow({ member, isActive, onHover }) {
       >
         {member.role}
       </p>
-      <AnimatePresence>
-        {isActive && socials.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="flex items-center gap-2 mt-3 overflow-hidden"
-          >
-            {socials.map((s) => (
-              <SocialLink key={s.title} {...s} />
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isActive && socials.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="flex items-center gap-2 mt-3 overflow-hidden"
+        >
+          {socials.map((s) => (
+            <SocialLink key={s.title} {...s} />
+          ))}
+        </motion.div>
+      )}
     </motion.button>
   )
 }
@@ -260,9 +257,11 @@ export default function Team({ showHeader = true }) {
                   ))}
                 </div>
 
-                <AnimatePresence mode="wait">
-                  <ActiveMemberBio member={activeMember} />
-                </AnimatePresence>
+                {/* ActiveMemberBio keys its own motion.div on member.id, so the
+                    bio remounts and replays its entrance on change without
+                    AnimatePresence — which under mode="wait" would stall
+                    forever waiting on an exit that never resolves. */}
+                <ActiveMemberBio member={activeMember} />
               </div>
             </div>
           </div>
